@@ -1,0 +1,42 @@
+# No network in tests, so no secrets are needed. The legal-accuracy drift check skips itself
+# when statecheck-docs is not checked out beside the repo, which is always the case here.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: ${{ matrix.os }} / node ${{ matrix.node }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20, 22]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run build
+      - name: The CLI runs from the build
+        run: node dist/cli.js --sample good --fail-on unclear
+      - name: The bad sample trips --fail-on
+        shell: bash
+        run: |
+          if node dist/cli.js --sample bad --fail-on not-found > /dev/null; then
+            echo "expected exit 1 on the bad sample"; exit 1
+          fi

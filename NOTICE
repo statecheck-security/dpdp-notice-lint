@@ -1,0 +1,15 @@
+dpdp-notice-lint
+Copyright 2026 StateCheck Security
+
+This product includes software developed by StateCheck Security
+(https://statechecksecurity.com).
+
+The check catalogue (titles, status wording, fix steps and the verbatim
+extracts of the Digital Personal Data Protection Act, 2023 and the Digital
+Personal Data Protection Rules, 2025) is developed alongside the DPDPA
+Notice Check on statechecksecurity.com, Copyright 2026 StateCheck Security,
+Apache License, Version 2.0.
+
+The legal references in this software are pointers for engineers and
+drafters. They are not legal advice, and the linter gives no compliance
+verdict.

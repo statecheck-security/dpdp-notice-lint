@@ -1,0 +1,66 @@
+{
+  "name": "dpdp-notice-lint",
+  "version": "0.1.0",
+  "description": "Checks a privacy notice against Section 5 of India's DPDP Act, 2023 and Rule 3 of the DPDP Rules, 2025: found, not found or unclear for each required element, with the evidence. No score, no verdict.",
+  "keywords": [
+    "dpdpa",
+    "dpdp-act",
+    "dpdp-rules",
+    "privacy-notice",
+    "india",
+    "privacy",
+    "compliance",
+    "linter"
+  ],
+  "homepage": "https://github.com/statecheck-security/dpdp-notice-lint#readme",
+  "bugs": "https://github.com/statecheck-security/dpdp-notice-lint/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/statecheck-security/dpdp-notice-lint.git"
+  },
+  "license": "Apache-2.0",
+  "author": "StateCheck Security (https://statechecksecurity.com)",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "dpdp-notice-lint": "./dist/cli.js"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "CHANGELOG.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "lint": "tsc --noEmit && eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "cli": "tsx src/cli.ts",
+    "prepublishOnly": "npm run lint && npm test && npm run build"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^24.10.1",
+    "eslint": "^9.39.1",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.46.4",
+    "vitest": "^3.2.4"
+  }
+}

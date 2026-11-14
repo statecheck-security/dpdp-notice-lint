@@ -1,0 +1,80 @@
+# Release: on a v* tag, build, check the tag matches package.json, attach the tarball to a
+# GitHub release with the matching CHANGELOG section as notes, and publish to npm with
+# provenance through trusted publishing when the repository variable NPM_TRUSTED_PUBLISHING
+# is "true" (set it after registering this workflow as a trusted publisher on npmjs.com).
+# Until then the npm job is skipped, not failed.
+name: release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint && npm test && npm run build
+      - name: The tag matches the package version
+        run: |
+          ver=$(node -p "require('./package.json').version")
+          test "v$ver" = "${GITHUB_REF_NAME}" || { echo "tag ${GITHUB_REF_NAME} does not match version $ver"; exit 1; }
+      - run: npm pack
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tarball
+          path: '*.tgz'
+
+  github-release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: tarball
+      - name: Release notes from CHANGELOG.md
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          awk -v tag="$tag" '
+            $0 ~ "^## \\[" tag "\\]" { p = 1; next }
+            /^## \[/ { p = 0 }
+            p' CHANGELOG.md > notes.md
+          test -s notes.md || echo "See CHANGELOG.md." > notes.md
+          printf '\n---\nNot legal advice. dpdp-notice-lint reports what it found in the text and which provision each element rests on; it gives no compliance verdict.\n' >> notes.md
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" *.tgz \
+            --title "dpdp-notice-lint ${GITHUB_REF_NAME}" \
+            --notes-file notes.md \
+            --verify-tag
+
+  npm:
+    needs: build
+    if: ${{ vars.NPM_TRUSTED_PUBLISHING == 'true' }}
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --provenance --access public

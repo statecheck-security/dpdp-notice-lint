@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Notices people lint locally may be real company documents; never commit them
+notices/
+*.notice.txt
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Claude Code: local permission grants (machine-specific). PLAN.md in .claude/ is tracked.
+.claude/settings.local.json
