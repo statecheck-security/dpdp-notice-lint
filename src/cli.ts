@@ -8,7 +8,7 @@ import { CHECKS, SAMPLE_BAD, SAMPLE_GOOD } from './catalogue/index.js';
 import { lintNotice } from './lint.js';
 import { formatJson, formatText } from './report.js';
 
-const VERSION = '0.1.0';
+const VERSION = '0.2.0';
 
 const USAGE = `dpdp-notice-lint ${VERSION}
 

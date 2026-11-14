@@ -156,10 +156,8 @@ describe('notice linter catalogue: labels and wording', () => {
     expect(RESULT_CAVEATS.some((c) => /not legal advice/.test(c))).toBe(true);
   });
 
-  it('open legal wording questions are marked [OWNER], never guessed silently', () => {
-    const owner = strings(CATALOGUE).filter((s) => s.includes('[OWNER'));
-    expect(owner.length).toBeGreaterThan(0);
-    for (const s of owner) expect(s).toMatch(/\[OWNER[^\]]*\]/);
+  it('no [OWNER] marker remains: every open wording question has an owner decision', () => {
+    expect(strings(CATALOGUE).filter((s) => s.includes('[OWNER'))).toEqual([]);
   });
 });
 

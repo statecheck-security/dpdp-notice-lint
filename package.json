@@ -1,6 +1,6 @@
 {
   "name": "dpdp-notice-lint",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Checks a privacy notice against Section 5 of India's DPDP Act, 2023 and Rule 3 of the DPDP Rules, 2025: found, not found or unclear for each required element, with the evidence. No score, no verdict.",
   "keywords": [
     "dpdpa",

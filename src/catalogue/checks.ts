@@ -6,10 +6,11 @@ import type { Certainty, CertaintyDef, CheckDef, Status, StatusDef } from './typ
  * owner's legal review, then `YYYY-MM-DD`, with `-rN` for a second change on the same day. Every
  * result is stamped with it, so a consumer can tell which wording a result was built against.
  *
- * 2026-11-14-draft1: first draft of the ten checks, written from the notified texts. Owner
- * review outstanding; open wording questions are marked [OWNER] in the copy.
+ * 2026-11-14: the ten checks, written from the notified texts and reviewed by the owner on
+ * GitHub. Decisions: an English-only notice satisfies S.5(3) (N8 found); N9 stays as
+ * information; N5 names the Board and notes that its complaint channel is pending.
  */
-export const CATALOGUE_VERSION = '2026-11-14-draft1';
+export const CATALOGUE_VERSION = '2026-11-14';
 
 export const CERTAINTY: Record<Certainty, CertaintyDef> = {
   settled: {
@@ -165,7 +166,7 @@ export const CHECKS: CheckDef<ProvisionCite>[] = [
     },
     fix: [
       'Name the Data Protection Board of India and say that a person may complain to it after raising the grievance with you first (S.13(3)).',
-      "Give the link or other means the Board publishes for complaints. [OWNER: confirm the Board's complaint channel once it is published.]",
+      "Say a person may complain to the Board after your grievance process, with the Board's link or other means. The Board has not yet published its complaint channel, so add the link once it does.",
       'Keep this next to your own grievance contact, so the order (you first, then the Board) is clear.',
     ],
     provisions: ['Rule 3(c)(iii)', 'S.5(1)(iii)', 'S.13(3)'],
@@ -228,8 +229,7 @@ export const CHECKS: CheckDef<ProvisionCite>[] = [
     statusText: {
       found: 'We found the notice offered in English or an Eighth Schedule language.',
       not_found: 'We did not find a language option in this text.',
-      unclear:
-        'We found a language named, but not an offer to read the notice in it, or the notice names English only.',
+      unclear: 'We found a language named, but not an offer to read the notice in it.',
     },
     fix: [
       'Say which languages the notice is available in and how to switch, such as a language selector on the page.',
@@ -238,7 +238,7 @@ export const CHECKS: CheckDef<ProvisionCite>[] = [
     provisions: ['S.5(3)'],
     certainty: 'likely',
     caveat:
-      'S.5(3) gives the option to access the notice in English or any Eighth Schedule language. The text does not say whether English alone is enough. [OWNER: decide whether an English-only notice is marked found or unclear.]',
+      'S.5(3) gives the option to access the notice in English or any Eighth Schedule language, so a notice offered in English alone is found. Whether your users need an Eighth Schedule language is a question for you, not the linter.',
   },
   {
     id: 'N9',
@@ -259,7 +259,7 @@ export const CHECKS: CheckDef<ProvisionCite>[] = [
     provisions: ['S.8(9)', 'Rule 9', 'S.8(10)', 'Rule 14(3)'],
     certainty: 'likely',
     caveat:
-      "Not a Rule 3 element: these duties attach to the website or app, and most companies meet them in the notice. [OWNER: decide whether this check stays here or with the Website Check's contact and grievance items.]",
+      'Not a Rule 3 element: these duties attach to the website or app, and most companies meet them in the notice. Reported as information, never counted.',
   },
   {
     id: 'N10',

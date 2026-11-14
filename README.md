@@ -6,9 +6,8 @@ Act, 2023 and **Rule 3** of the DPDP Rules, 2025. For each required element it s
 library with no dependencies, a CLI, and the engine behind the free
 [DPDPA Notice Check](https://statechecksecurity.com/dpdpa/notice-check) on statechecksecurity.com.
 
-**Status:** v0.1.0, catalogue `2026-11-14-draft1`. Ten checks, English notices only. The legal
-wording is a first draft from the notified texts and is under owner review; open questions are
-marked `[OWNER]` in the catalogue. See [CHANGELOG.md](CHANGELOG.md).
+**Status:** v0.2.0, catalogue `2026-11-14`. Ten checks, English notices only; the wording is
+owner-reviewed. See [CHANGELOG.md](CHANGELOG.md).
 
 > **Not legal advice.** The linter reports what it found in the text you gave it and which
 > provision each element rests on. It gives no score and no compliance verdict. "Not found"
