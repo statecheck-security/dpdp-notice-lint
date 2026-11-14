@@ -172,8 +172,9 @@ describe('notice linter: per-check edges', () => {
     expect(status(lintNotice(`${PAD} We keep sentences short.`), 'N7')).toBe('not_found');
   });
 
-  it('N8: English only is unclear; a Schedule language named without an offer is unclear; an offer is found', () => {
-    expect(status(lintNotice(`${PAD} This notice is provided in English.`), 'N8')).toBe('unclear');
+  it('N8: an offer in English alone is found (S.5(3)); a language named without an offer is unclear', () => {
+    expect(status(lintNotice(`${PAD} This notice is provided in English.`), 'N8')).toBe('found');
+    expect(status(lintNotice(`${PAD} This notice is written in English.`), 'N8')).toBe('unclear');
     expect(status(lintNotice(`${PAD} Our support team speaks Hindi.`), 'N8')).toBe('unclear');
     expect(
       status(lintNotice(`${PAD} You can read this notice in Hindi or Kannada using the language selector.`), 'N8'),

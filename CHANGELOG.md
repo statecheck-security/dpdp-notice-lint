@@ -3,6 +3,20 @@
 All notable changes to dpdp-notice-lint. Dates are UTC. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
+## [0.2.0] - 2026-11-14
+
+Catalogue `2026-11-14`: the wording is owner-reviewed and the draft label is gone.
+
+### Changed
+
+- N8: a notice offered in English alone is now **found**. S.5(3) gives the option to access the
+  notice in English or any Eighth Schedule language, so English satisfies it; a language named
+  without an offer to read the notice in it stays unclear.
+- N5: the fix step says the Board has not yet published its complaint channel and to add the
+  link once it does. The check itself is unchanged.
+- N9: stays in the linter as information, never counted; the caveat says so.
+- The three `[OWNER]` markers are resolved, and a test now fails if one reappears.
+
 ## [0.1.0] - 2026-11-14
 
 First release. Catalogue `2026-11-14-draft1`.

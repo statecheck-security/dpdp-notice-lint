@@ -413,11 +413,14 @@ const AVAILABLE =
 
 function checkLanguage(units: Unit[]): CheckResult {
   const id: CheckId = 'N8';
+  // S.5(3): English or an Eighth Schedule language, so an offer in English alone is found (owner decision, 2026-11-14).
   const offered = units.filter(
-    (u) => (SCHEDULE_LANGUAGE.test(u.text) || /\blanguages\b/i.test(u.text)) && AVAILABLE.test(u.text),
+    (u) =>
+      (SCHEDULE_LANGUAGE.test(u.text) || ENGLISH.test(u.text) || /\blanguages\b/i.test(u.text)) &&
+      AVAILABLE.test(u.text),
   );
   if (offered.length > 0) return { id, status: 'found', evidence: evidence(offered) };
-  const named = units.filter((u) => SCHEDULE_LANGUAGE.test(u.text) || (ENGLISH.test(u.text) && AVAILABLE.test(u.text)));
+  const named = units.filter((u) => SCHEDULE_LANGUAGE.test(u.text) || ENGLISH.test(u.text));
   if (named.length > 0) return { id, status: 'unclear', evidence: evidence(named) };
   return { id, status: 'not_found', evidence: [] };
 }
